@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Main from './Main';
-import { getSheduleDataThunkCreator, setGroupCookieThunkCreator } from '../reducers/mainReducer';
+import { getSheduleDataThunkCreator, setGroupThunkCreator } from '../reducers/mainReducer';
 import { translitToRus } from '../helpers/translitToRus';
 
 let mapStateToProps = (state) => {
@@ -14,11 +14,11 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = dispatch => {
     return({
-        getShedule: () => {
-            dispatch(getSheduleDataThunkCreator());
+        getShedule: (groupName) => {
+            dispatch(getSheduleDataThunkCreator(groupName));
         },
-        setGroupCookie: (value, ref) => {
-            dispatch(setGroupCookieThunkCreator(value, ref));
+        setGroup: (value, ref) => {
+            dispatch(setGroupThunkCreator(value, ref));
         }
     });
 }

@@ -1,8 +1,7 @@
 import React from 'react';
 import MainContainer from './components/MainContainer';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import LoginContainer from './components/LoginContainer';
-import RegContainer from './components/RegContainer';
 
 const App = props => (
     <div>
@@ -10,11 +9,8 @@ const App = props => (
             <Route path="/login">
                 <LoginContainer></LoginContainer>
             </Route>
-            <Route path="/reg">
-                <RegContainer></RegContainer>
-            </Route>
             <Route path="/">
-                <MainContainer></MainContainer>
+                {withRouter(props => <MainContainer {...props}></MainContainer>)}
             </Route>
         </Switch>
     </div>

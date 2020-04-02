@@ -3,10 +3,14 @@ import { scrollTo } from '../helpers/scrollLeftAnimation';
 
 const SHOW_SHEDULE = 'SHOW_SHEDULE';
 const SET_GROUP_COOKIE = 'SET_GROUP_COOKIE';
+const IS_ON_LOGIN = 'IS_ON_LOGIN';
+const IS_ONLINE = 'IS_ONLINE';
 
 let initialState = {
     groups: [],
-    selectedGroup: 'bbbo-05-17',
+    selectedGroup: '',
+    isOnline: false,
+    isOnLogin: false,
 }
 
 let mainReducer = (state = initialState, action) => {
@@ -22,6 +26,14 @@ let mainReducer = (state = initialState, action) => {
             setGroupCookieState.selectedGroup = action.data;
 
             return setGroupCookieState;
+        case IS_ON_LOGIN:
+            let isOnLoginState = {...state};
+            isOnLoginState.isOnLogin = action.data;
+            return isOnLoginState;
+        case IS_ONLINE:
+            let isOnlineState = {...state};
+            isOnlineState.isOnline = action.data;
+            return isOnlineState;
         default:
             return state;
     }
@@ -34,26 +46,50 @@ const showSheduleActionCreator = (data) => {
     });
 }
 
-const setGroupCookieActionCreator = data => ({
+const setGroupActionCreator = data => ({
     type: SET_GROUP_COOKIE,
     data: data,
 });
 
-export const getSheduleDataThunkCreator = () => dispatch => {
-    const selectedGroup = localStorage.getItem('selectedGroup');
-    if (selectedGroup) {
-        dispatch(setGroupCookieActionCreator(selectedGroup));
+export const setIsOnLoginActionCreator = data => ({
+    type: IS_ON_LOGIN,
+    data: data,
+});
+
+export const setIsOnlineActionCreator = data => ({
+    type: IS_ONLINE,
+    data: data,
+});
+
+export const getSheduleDataThunkCreator = pathGroup => dispatch => {
+
+    let selectedGroup = localStorage.getItem('selectedGroup');
+
+    const shedule = JSON.parse(localStorage.getItem('shedule'));
+
+    if (!selectedGroup) {
+        selectedGroup = pathGroup;
     }
-    axios.get('/api/timetable/').then(res => {
-        dispatch(showSheduleActionCreator(res.data));
-    });
+
+    if (selectedGroup) {
+        dispatch(setGroupActionCreator(selectedGroup));
+    }
+
+    if (shedule) {
+        dispatch(showSheduleActionCreator(shedule));
+    } else {
+        axios.get('/api/timetable/').then(res => {
+            localStorage.setItem('shedule', JSON.stringify(res.data));
+            dispatch(showSheduleActionCreator(res.data));
+        });
+    }
 }
 
-export const setGroupCookieThunkCreator = (value = null, ref) => dispatch => {
+export const setGroupThunkCreator = (value = null, ref) => dispatch => {
     scrollTo(ref, 0, 300);
     if (value) {
         localStorage.setItem('selectedGroup', value);
-        dispatch(setGroupCookieActionCreator(value));
+        dispatch(setGroupActionCreator(value));
     } else {
         console.log('Ошибка получения значения');
     }

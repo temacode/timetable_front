@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import LinkButton from '../design-kit/LinkButton';
-import { useLocation, Link } from 'react-router-dom';
+import LinkButton from '../../design-kit/LinkButton';
+import { Link } from 'react-router-dom';
 
 const HeaderBlock = styled.div`
     display: flex;
@@ -26,13 +26,11 @@ const HeaderBlock = styled.div`
     }
 `;
 
-const Header = props => {
-    let location = useLocation();
-
+const Header = ({isOnline, isOnLogin, ...props}) => {
     return (
         <HeaderBlock>
             <Link to="/"><h1>КАРАНТИН<span> в МИРЭА</span></h1></Link>
-            {location.pathname !== '/login' ? <LinkButton to="/login" top="3" size="s" appearance="outline">Вход</LinkButton> : ''}
+            {(!isOnline && !isOnLogin) ? <LinkButton to="/login" top="3" size="s" appearance="outline">Вход</LinkButton> : ''}
         </HeaderBlock>
     );
 }
