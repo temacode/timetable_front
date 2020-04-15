@@ -77,7 +77,7 @@ class LessonList extends React.Component {
                     </Time>
                     <Name>
                         {e.lesson ? e.lesson.name : ''}
-                        <LessonLocation>{e.lesson ? e.lesson.location + ", " + e.lesson.type : ''}</LessonLocation>
+                        <LessonLocation>{e.lesson && e.lesson.location ? e.lesson.location : ''} {e.lessson && e.lesson.type ? ', '+e.lesson.type : ''}</LessonLocation>
                     </Name>
                     <Teacher>{e.lesson ? e.lesson.teacher : ''}</Teacher>
                 </Lesson>
