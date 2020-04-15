@@ -12,40 +12,44 @@ let initialState = {
     selectedGroup: '',
     isOnline: false,
     isOnLogin: false,
-}
+};
 
 let mainReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SHOW_SHEDULE:
+        case SHOW_SHEDULE: {
             let sheduleState = { ...state };
 
-            sheduleState.groups = [...action.data];
+            sheduleState.groups = [ ...action.data ];
 
             return sheduleState;
-        case SET_GROUP_COOKIE:
+        }
+        case SET_GROUP_COOKIE: {
             let setGroupCookieState = { ...state };
             setGroupCookieState.selectedGroup = action.data;
 
             return setGroupCookieState;
-        case IS_ON_LOGIN:
-            let isOnLoginState = {...state};
+        }
+        case IS_ON_LOGIN: {
+            let isOnLoginState = { ...state };
             isOnLoginState.isOnLogin = action.data;
             return isOnLoginState;
-        case IS_ONLINE:
-            let isOnlineState = {...state};
+        }
+        case IS_ONLINE: {
+            let isOnlineState = { ...state };
             isOnlineState.isOnline = action.data;
             return isOnlineState;
+        }
         default:
             return state;
     }
-}
+};
 
 const showSheduleActionCreator = (data) => {
     return({
         type: SHOW_SHEDULE,
         data: data,
     });
-}
+};
 
 const setGroupActionCreator = data => ({
     type: SET_GROUP_COOKIE,
@@ -84,14 +88,14 @@ export const getSheduleDataThunkCreator = pathGroup => dispatch => {
     } else {
         axios.get('/api/timetable/').then(res => {
             const shedule = {
-                data: [...res.data],
+                data: [ ...res.data ],
                 savedAt: dateNow,
-            }
+            };
             localStorage.setItem('shedule', JSON.stringify(shedule));
             dispatch(showSheduleActionCreator(shedule.data));
         });
     }
-}
+};
 
 export const setGroupThunkCreator = (value = null, ref) => dispatch => {
     scrollTo(ref, 0, 300);
@@ -101,6 +105,6 @@ export const setGroupThunkCreator = (value = null, ref) => dispatch => {
     } else {
         console.log('Ошибка получения значения');
     }
-}
+};
 
 export default mainReducer;

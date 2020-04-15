@@ -57,11 +57,11 @@ const validate = values => {
     }
 
     return errors;
-}
+};
 
 const renderField = ({ input, placeholder, type, meta: { touched, error, warning } }) => (
     <StyledField>
-        <StyledFieldInput {...input} placeholder={placeholder} type={type}></StyledFieldInput>
+        <StyledFieldInput { ...input } placeholder={ placeholder } type={ type }></StyledFieldInput>
         <StyledFieldMessage>
             {touched && error ? error : ''}
             {touched && warning ? warning : ''}
@@ -76,13 +76,20 @@ const LoginForm = reduxForm({
     const { handleSubmit } = props;
 
     return (
-        <StyledForm onSubmit={handleSubmit}>
+        <StyledForm onSubmit={ handleSubmit }>
             <FormHeader>Вход</FormHeader>
             <FieldBlock>
-                <Field name="login" component={renderField} type="text" placeholder="Логин"></Field>
-                <Field name="password" component={renderField} type="password" placeholder="Пароль" autoFocus></Field>
+                <Field name="login" component={ renderField } type="text" placeholder="Логин"></Field>
+                <Field autoFocus name="password" component={ renderField } type="password" placeholder="Пароль"></Field>
             </FieldBlock>
-            <FieldButton centered isLoading={props.isLoading} name="sibmit" component="button" type="submit">Отправить</FieldButton>
+            <FieldButton centered
+                isLoading={ props.isLoading }
+                name="sibmit"
+                component="button"
+                type="submit">
+
+                Отправить
+            </FieldButton>
         </StyledForm>
     );
 });

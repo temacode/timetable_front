@@ -11,9 +11,9 @@ const StyledLink = styled(Link)`
     height: 100%;
 `;
 
-const LinkButton = ({ to, ...props}) => (
-    <Button {...props}>
-        <StyledLink to={to}>{props.children}</StyledLink>
+const LinkButton = ({ to, ...props }) => (
+    <Button { ...props }>
+        <StyledLink to={ to }>{props.children}</StyledLink>
     </Button>
 );
 

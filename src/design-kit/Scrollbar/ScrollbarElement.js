@@ -18,8 +18,10 @@ const StyledScrollbarElement = styled(Link)`
     color: ${props => props.selected ? 'white' : ''};
 `;
 
-const ScrollbarElement = ({to, ...props}) => (
-    <StyledScrollbarElement to={to} {...props}>{props.children}</StyledScrollbarElement>
+const ScrollbarElement = ({ to, ...props }) => (
+    <StyledScrollbarElement to={ to }
+        { ...props }>{props.children}
+    </StyledScrollbarElement>
 );
 
 export default ScrollbarElement;

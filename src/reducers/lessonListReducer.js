@@ -1,12 +1,12 @@
 let initialState = {
-    shedule: []
-}
+    shedule: [],
+};
 
 let lessonReducer = (state = initialState, action) => {
     switch (action.type) {
-        default: 
+        default:
             return state;
     }
-}
+};
 
 export default lessonReducer;

@@ -9,6 +9,7 @@ const StyledField = styled(Field)`
     align-items: center;
     width: 100%;
     height: 100%;
+    cursor: pointer;
 
     background: none;
     border: none;
@@ -16,11 +17,11 @@ const StyledField = styled(Field)`
 `;
 
 const FieldButton = ({ name, component, type, placeholder, top, ...props }) => (
-    <Button {...props} top={top || "30"}>
-        <StyledField name={name}
-                     component={component}
-                     type={type}
-                     placeholder={placeholder}>
+    <Button { ...props } top={ top || '30' }>
+        <StyledField name={ name }
+            component={ component }
+            type={ type }
+            placeholder={ placeholder }>
 
             {props.children}
         </StyledField>

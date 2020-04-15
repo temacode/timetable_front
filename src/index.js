@@ -11,8 +11,8 @@ import mainTheme from './design-kit/themes/mainTheme';
 
 ReactDOM.render(
     <Router>
-        <Provider store={store}>
-            <ThemeProvider theme={mainTheme}>
+        <Provider store={ store }>
+            <ThemeProvider theme={ mainTheme }>
                 <App />
             </ThemeProvider>
         </Provider>

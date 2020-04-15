@@ -19,12 +19,25 @@ class Login extends React.Component {
                 <HeaderContainer></HeaderContainer>
                 <Switch>
                     <Route path="/login/reg">
-                        <RegForm setValues={this.props.setValues} isLoading={this.props.isLoading} onSubmit={this.props.register}></RegForm>
+                        <RegForm setValues={ this.props.setValues }
+                            isLoading={ this.props.isLoading }
+                            onSubmit={ this.props.register }>
+                        </RegForm>
                         <LinkButton centered to="/login" appearance="flat"> Уже зарегистрированы?</LinkButton>
                     </Route>
                     <Route path="/login">
-                        <LoginForm isLoading={this.props.isLoading} onSubmit={this.props.login}></LoginForm>
-                        <LinkButton centered isLoading={false} to="/login/reg" appearance="flat">Зарегистрироваться</LinkButton>
+                        <LoginForm
+                            isLoading={ this.props.isLoading }
+                            onSubmit={ this.props.login }>
+
+                        </LoginForm>
+                        <LinkButton centered
+                            isLoading={ false }
+                            to="/login/reg"
+                            appearance="flat">
+
+                            Зарегистрироваться
+                        </LinkButton>
                     </Route>
                 </Switch>
             </div>

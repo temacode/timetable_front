@@ -5,4 +5,4 @@ export const getYMDString = (dateObj = new Date()) => { // 2020-04-14
     const year = dateObj.getUTCFullYear();
 
     return `${year}-${month}-${day}`;
-}
+};

@@ -10,7 +10,7 @@ let mapStateToProps = (state) => {
         selectedGroupRus: translitToRus(state.main.selectedGroup),
         isSelectingGroup: state.main.isSelectingGroup,
     });
-}
+};
 
 let mapDispatchToProps = dispatch => {
     return({
@@ -19,9 +19,9 @@ let mapDispatchToProps = dispatch => {
         },
         setGroup: (value, ref) => {
             dispatch(setGroupThunkCreator(value, ref));
-        }
+        },
     });
-}
+};
 
 let MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);
 

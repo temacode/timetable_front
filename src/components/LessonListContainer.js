@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import LessonList from './LessonList';
-let mapStateToProps = state => {
+let mapStateToProps = () => {
     return ({
     });
-}
+};
 
-let mapDispatchToProps = dispatch => {
+let mapDispatchToProps = () => {
     return ({});
-}
+};
 
 const LessonListContainer = connect(mapStateToProps, mapDispatchToProps)(LessonList);
 

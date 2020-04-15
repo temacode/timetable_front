@@ -69,7 +69,7 @@ class LessonList extends React.Component {
         let lessons = this.props.lessonList.map((e, i) => {
             let lessonTime = lessonNumToTime(i);
             return (
-                <Lesson key={i}>
+                <Lesson key={ i }>
                     <Num>{i + 1}</Num>
                     <Time>
                         <div>{lessonTime[0]}</div>
@@ -77,7 +77,10 @@ class LessonList extends React.Component {
                     </Time>
                     <Name>
                         {e.lesson ? e.lesson.name : ''}
-                        <LessonLocation>{e.lesson && e.lesson.location ? e.lesson.location : ''} {e.lessson && e.lesson.type ? ', '+e.lesson.type : ''}</LessonLocation>
+                        <LessonLocation>
+                            {e.lesson && e.lesson.location ? e.lesson.location : ''}
+                            {e.lessson && e.lesson.type ? ', '+e.lesson.type : ''}
+                        </LessonLocation>
                     </Name>
                     <Teacher>{e.lesson ? e.lesson.teacher : ''}</Teacher>
                 </Lesson>

@@ -26,13 +26,23 @@ const HeaderBlock = styled.div`
     }
 `;
 
-const Header = ({isOnline, isOnLogin, ...props}) => {
+const Header = ({ isOnline, isOnLogin }) => {
     return (
         <HeaderBlock>
             <Link to="/"><h1>КАРАНТИН<span> в МИРЭА</span></h1></Link>
-            {/* {(!isOnline && !isOnLogin) ? <LinkButton to="/login" top="3" size="s" appearance="outline">Вход</LinkButton> : ''} */}
+            {
+                (!isOnline && !isOnLogin) ?
+                    <LinkButton to="/login"
+                        top="3"
+                        size="s"
+                        appearance="outline">
+
+                        Вход
+                    </LinkButton>
+                    : ''
+            }
         </HeaderBlock>
     );
-}
+};
 
 export default Header;

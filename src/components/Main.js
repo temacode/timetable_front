@@ -30,23 +30,28 @@ class Main extends React.Component {
 
         let groups = this.props.groups.map((e, i) => {
             if (e.groupName === this.props.selectedGroup) {
-                return (<GroupContainer key={i} group={e}></GroupContainer>);
+                return (<GroupContainer key={ i } group={ e }></GroupContainer>);
             }
             return null;
         });
 
         const onClickHandler = (elem, ref) => {
             this.props.setGroup(elem, ref);
-        }
+        };
         return (
             <div>
-                {this.props.location.pathname === '/' && this.props.selectedGroup ? <Redirect to={this.props.selectedGroup}></Redirect> : ''}
+                {
+                    this.props.location.pathname === '/' && this.props.selectedGroup ?
+                        <Redirect to={ this.props.selectedGroup }>
+                        </Redirect>
+                        : ''
+                }
                 <HeaderContainer></HeaderContainer>
                 <Scrollbar
-                    elems={groupSelectList}
-                    firstElem={this.props.selectedGroupRus}
-                    firstElemKey={this.props.selectedGroup}
-                    onClickHandler={onClickHandler}>
+                    elems={ groupSelectList }
+                    firstElem={ this.props.selectedGroupRus }
+                    firstElemKey={ this.props.selectedGroup }
+                    onClickHandler={ onClickHandler }>
                 </Scrollbar>
                 {this.props.groups.length > 0 ? groups : 'Загрузка'}
             </div>

@@ -12,16 +12,21 @@ const StyledScrollbar = styled.div`
 
 class Scrollbar extends React.Component {
 
+    constructor() {
+        super();
+        this.scrollbarRef = React.createRef();
+    }
+
     render() {
         const scrollbarElems = this.props.elems.map((e, i) => {
             if (e) {
                 return (
                     <ScrollbarElement
-                        key={i}
-                        to={e.key}
-                        onClick={() => {
-                            this.props.onClickHandler(e.key, this.refs.scrollbar);
-                        }}>
+                        key={ i }
+                        to={ e.key }
+                        onClick={ () => {
+                            this.props.onClickHandler(e.key, this.scrollbarRef);
+                        } }>
 
                         {e.data}
                     </ScrollbarElement>
@@ -31,15 +36,17 @@ class Scrollbar extends React.Component {
         });
 
         return (
-            <StyledScrollbar ref="scrollbar">
+            <StyledScrollbar ref={ this.scrollbarRef }>
                 {this.props.firstElem ?
-                <ScrollbarElement to={this.props.firstElemKey} selected>{this.props.firstElem}
-                </ScrollbarElement>
-                : ''}
+                    <ScrollbarElement
+                        selected
+                        to={ this.props.firstElemKey }>{this.props.firstElem}
+                    </ScrollbarElement>
+                    : ''}
                 {scrollbarElems}
             </StyledScrollbar>
         );
     }
-};
+}
 
 export default Scrollbar;
