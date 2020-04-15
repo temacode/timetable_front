@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import Login from "./Login";
-import { loginThunkCreator } from "../reducers/loginReducer";
+import { loginThunkCreator, registerThunkCreator } from "../reducers/loginReducer";
 import { setIsOnLoginActionCreator } from "../reducers/mainReducer";
+import { change } from "redux-form";
 
 let mapStateToProps = state => ({
     isLoading: state.login.isLoading,
@@ -16,7 +17,12 @@ let mapDispatchToProps = dispatch => ({
         dispatch(loginThunkCreator(values));
     },
     register: (values) => {
-
+        dispatch(registerThunkCreator(values));
+    },
+    setValues: (values) => {
+        values.fields.forEach((field) => {
+            dispatch(change(values.formName, field.name, field.value));
+        });
     }
 })
 

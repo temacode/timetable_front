@@ -10,17 +10,18 @@ const StyledButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto;
+    margin: ${props => props.centered ? 'auto' : '20px'};
     margin-top: ${props => props.top ? (props.top + 'px') : props.theme.marginTop};
     cursor: pointer;
     transition: 0.3s;
 
     background: ${props => props.theme.background || ''};
-    color: ${props => props.theme.color || ''};
+    color: ${props => props.theme.color || 'white'};
+    * {
+        color: ${props => props.theme.color || 'white'};
+    }
     box-shadow: ${props => props.theme.boxShadow || ''};
     border: ${props => props.theme.border || ''};
-
-    
 
     :hover {
         background: ${props => props.theme.hoverBackground};
@@ -37,14 +38,10 @@ const StyledLoader = styled.div`
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     border-radius: 6px;
-`;
 
-const Spinner = styled.div`
-    display: block;
-    margin: auto;
-    width: 50px;
-    height: 20px;
-    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const buttonThemes = {
@@ -66,16 +63,16 @@ const buttonThemes = {
         hoverBackground: '#eaeaea',
     }
 }
-const Button = ({isLoading = false, appearance = 'regular', top, size, ...props}) => {
+const Button = ({ isLoading = false, appearance = 'regular', top, size, centered, onClick, ...props}) => {
     const theme = buttonThemes[appearance];
     return (
         <ThemeProvider theme={theme}>
-            <StyledButton top={top} size={size} appearance={appearance}>
+            <StyledButton top={top} size={size} appearance={appearance} props={props} centered={centered} onClick={onClick}>
+                {isLoading ?
                 <StyledLoader isLoading={isLoading}>
-                    <Spinner>
                         <PongSpinner size={40} color="#393939" loading={isLoading}></PongSpinner>
-                    </Spinner>
                 </StyledLoader>
+                : undefined}
 
                 {props.children}
             </StyledButton>

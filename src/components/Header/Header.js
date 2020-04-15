@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import LinkButton from '../../design-kit/LinkButton';
 import { Link } from 'react-router-dom';
+import LinkButton from '../../design-kit/Button/LinkButton';
 
 const HeaderBlock = styled.div`
     display: flex;
@@ -30,7 +30,7 @@ const Header = ({isOnline, isOnLogin, ...props}) => {
     return (
         <HeaderBlock>
             <Link to="/"><h1>КАРАНТИН<span> в МИРЭА</span></h1></Link>
-            {(!isOnline && !isOnLogin) ? <LinkButton to="/login" top="3" size="s" appearance="outline">Вход</LinkButton> : ''}
+            {/* {(!isOnline && !isOnLogin) ? <LinkButton to="/login" top="3" size="s" appearance="outline">Вход</LinkButton> : ''} */}
         </HeaderBlock>
     );
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { scrollTo } from '../helpers/scrollLeftAnimation';
+import { getYMDString } from '../helpers/dateHelper';
 
 const SHOW_SHEDULE = 'SHOW_SHEDULE';
 const SET_GROUP_COOKIE = 'SET_GROUP_COOKIE';
@@ -63,6 +64,8 @@ export const setIsOnlineActionCreator = data => ({
 
 export const getSheduleDataThunkCreator = pathGroup => dispatch => {
 
+    const dateNow = getYMDString();
+
     let selectedGroup = localStorage.getItem('selectedGroup');
 
     const shedule = JSON.parse(localStorage.getItem('shedule'));
@@ -75,12 +78,17 @@ export const getSheduleDataThunkCreator = pathGroup => dispatch => {
         dispatch(setGroupActionCreator(selectedGroup));
     }
 
-    if (shedule) {
-        dispatch(showSheduleActionCreator(shedule));
+    if (shedule && shedule.savedAt === dateNow) {
+        console.log(shedule.data);
+        dispatch(showSheduleActionCreator(shedule.data));
     } else {
         axios.get('/api/timetable/').then(res => {
-            localStorage.setItem('shedule', JSON.stringify(res.data));
-            dispatch(showSheduleActionCreator(res.data));
+            const shedule = {
+                data: [...res.data],
+                savedAt: dateNow,
+            }
+            localStorage.setItem('shedule', JSON.stringify(shedule));
+            dispatch(showSheduleActionCreator(shedule.data));
         });
     }
 }
