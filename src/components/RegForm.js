@@ -3,12 +3,8 @@ import { reduxForm, Field } from 'redux-form';
 import styled from 'styled-components';
 import FieldButton from '../design-kit/Button/FieldButton';
 import Button from '../design-kit/Button/Button';
-
-const StyledForm = styled.form`
-    width: 90%;
-    margin: auto;
-    margin-top: 20px;
-`;
+import { StyledForm } from '../design-kit/Form/Form';
+import LinkButton from '../design-kit/Button/LinkButton';
 
 const FormHeader = styled.p`
     text-align: center;
@@ -137,13 +133,14 @@ const RegForm = reduxForm({
                     validate={ passwordValidation }>
                 </Field>
             </FieldBlock>
-            <Button centered onClick={ handleClick }>Заполнить</Button>
+            <Button centered appearance="flat" onTouchStart={ handleClick }>Заполнить</Button>
             <FieldButton centered
                 component="button"
                 isLoading={ props.isLoading }
                 name="sibmit"
                 type="submit">Отправить
             </FieldButton>
+            <LinkButton centered to="/login" appearance="flat"> Уже зарегистрированы?</LinkButton>
         </StyledForm>
     );
 });

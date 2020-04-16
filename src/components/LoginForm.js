@@ -2,12 +2,8 @@ import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import styled from 'styled-components';
 import FieldButton from '../design-kit/Button/FieldButton';
-
-const StyledForm = styled.form`
-    width: 90%;
-    margin: auto;
-    margin-top: 20px;
-`;
+import { StyledForm } from '../design-kit/Form/Form';
+import LinkButton from '../design-kit/Button/LinkButton';
 
 const FormHeader = styled.p`
     text-align: center;
@@ -90,6 +86,13 @@ const LoginForm = reduxForm({
 
                 Отправить
             </FieldButton>
+            <LinkButton centered
+                isLoading={ false }
+                to="/login/reg"
+                appearance="flat">
+
+                Зарегистрироваться
+            </LinkButton>
         </StyledForm>
     );
 });

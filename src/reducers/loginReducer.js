@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { showNotificationThunkCreator } from './notificationReducer';
 
 const LOGIN = 'LOGIN';
 
@@ -38,6 +39,7 @@ export const registerThunkCreator = values => dispatch => {
     setTimeout(() => {
         axios.post('/api/auth/', { values }).then((res) => {
             console.log(res);
+            dispatch(showNotificationThunkCreator('Ура! Вы зарегистрировались'));
         }).catch(err => {
             console.log('Ошибка авторизации: ', err);
         });

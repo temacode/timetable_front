@@ -159,6 +159,6 @@ module.exports = {
 		'comma-dangle': [
 			'error',
 			'always-multiline',
-		]
+        ]
 	}
 };

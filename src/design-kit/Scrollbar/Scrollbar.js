@@ -14,7 +14,11 @@ class Scrollbar extends React.Component {
 
     constructor() {
         super();
-        this.scrollbarRef = React.createRef();
+        this.scrollbarRef = '';
+
+        this.setScrollbarRef = element => {
+            this.scrollbarRef = element;
+        };
     }
 
     render() {
@@ -36,7 +40,7 @@ class Scrollbar extends React.Component {
         });
 
         return (
-            <StyledScrollbar ref={ this.scrollbarRef }>
+            <StyledScrollbar ref={ this.setScrollbarRef }>
                 {this.props.firstElem ?
                     <ScrollbarElement
                         selected
