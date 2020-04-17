@@ -29,6 +29,12 @@ export function register(config) {
             return;
         }
 
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'SKIP_WAITING') {
+                window.skipWaiting();
+            }
+        });
+
         window.addEventListener('load', () => {
             const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
