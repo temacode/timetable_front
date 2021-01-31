@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ScrollbarElement from './ScrollbarElement';
+import { scrollTo } from '../../helpers/scrollLeftAnimation';
 
 const StyledScrollbar = styled.div`
     overflow-x: scroll;
@@ -21,18 +22,25 @@ class Scrollbar extends React.Component {
         };
     }
 
+    componentDidMount() {
+        if(!this.props.items) {
+            return;
+        }
+    }
+
     render() {
-        const scrollbarElems = this.props.elems.map((e, i) => {
+        const items = this.props.items.map((e, i) => {
             if (e) {
                 return (
                     <ScrollbarElement
                         key={ i }
-                        to={ e.key }
+                        to={ e.path }
                         onClick={ () => {
-                            this.props.onClickHandler(e.key, this.scrollbarRef);
+                            this.props.onClickHandler(e.key);
+                            scrollTo(this.scrollbarRef, 0, 300);
                         } }>
 
-                        {e.data}
+                        {e.displayName}
                     </ScrollbarElement>
                 );
             }
@@ -47,7 +55,7 @@ class Scrollbar extends React.Component {
                         to={ this.props.firstElemKey }>{this.props.firstElem}
                     </ScrollbarElement>
                     : ''}
-                {scrollbarElems}
+                {items}
             </StyledScrollbar>
         );
     }

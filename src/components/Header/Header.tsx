@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import LinkButton from '../../design-kit/Button/LinkButton';
+import LogoImg from '../../logo.png';
 
 const HeaderBlock = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     box-sizing: border-box;
     height: 58px;
@@ -26,10 +28,15 @@ const HeaderBlock = styled.div`
     }
 `;
 
+const Logo = styled.img`
+    height: 40px;
+`;
+
 const Header = ({ isOnline, isOnLogin }) => {
     return (
         <HeaderBlock>
-            <Link to="/"><h1>КАРАНТИН<span> в МИРЭА</span></h1></Link>
+            {/* <Link to="/"><h1>КАРАНТИН<span> в МИРЭА</span></h1></Link> */}
+            <Link to="/"><Logo src={ LogoImg }></Logo></Link>
             {
                 (!isOnline && !isOnLogin) ?
                     <LinkButton to="/login"

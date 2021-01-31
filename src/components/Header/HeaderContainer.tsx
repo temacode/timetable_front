@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import Header from './Header';
 
-const mapStateToProps = state => ({
-    isOnline: state.main.isLoggedIn,
-    isOnLogin: state.main.isOnLogin,
+const mapStateToProps = (state: any) => ({
+    isOnline: state.main.isLoggedIn || undefined,
+    isOnLogin: state.main.isOnLogin || undefined,
 });
 
 const HeaderContainer = connect(mapStateToProps, null)(Header);

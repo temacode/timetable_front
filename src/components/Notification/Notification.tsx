@@ -10,7 +10,7 @@ const StyledNotification = styled.div`
     width: 90%;
     padding: 25px 20px;
     border-radius: 6px;
-    background: #35384c;
+    background: black;
     bottom: ${props => props.isShowing ? '20px' : '-100px'};
     left: 50%;
     transform: translateX(-50%);

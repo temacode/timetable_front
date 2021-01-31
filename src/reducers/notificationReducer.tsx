@@ -3,7 +3,7 @@ const SHOW_MESSAGE = 'SHOW_MESSAGE';
 let initialState = {
     isShowing: false,
     message: '',
-    icon: '✅',
+    icon: '📫',
 };
 
 const notificationReducer = (state = initialState, action) => {

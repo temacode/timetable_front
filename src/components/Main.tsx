@@ -4,7 +4,7 @@ import HeaderContainer from './Header/HeaderContainer';
 import Scrollbar from '../design-kit/Scrollbar/Scrollbar';
 import { Redirect } from 'react-router-dom';
 
-class Main extends React.Component {
+class Main extends React.Component<any, any> {
     componentDidMount() {
         if (new RegExp(/[\w]{4}-[\d]{2}-[\d]{2}/gi).test(this.props.location.pathname)) {
             this.props.getShedule((this.props.location.pathname.split('/'))[1]);
@@ -13,16 +13,12 @@ class Main extends React.Component {
         }
     }
 
-    componentDidUpdate() {
-        console.log(this.props.groups);
-    }
-
     render() {
         let groupSelectList = this.props.groups.map((e) => {
             if (e.groupName !== this.props.selectedGroup) {
                 return ({
-                    key: e.groupName,
-                    data: e.groupNameRus,
+                    path: e.groupName,
+                    displayName: e.groupNameRus,
                 });
             }
             return null;
@@ -35,8 +31,8 @@ class Main extends React.Component {
             return null;
         });
 
-        const onClickHandler = (elem, ref) => {
-            this.props.setGroup(elem, ref);
+        const onClickHandler = (elem) => {
+            this.props.setGroup(elem);
         };
         return (
             <div>
@@ -47,6 +43,10 @@ class Main extends React.Component {
                         : ''
                 }
                 <HeaderContainer></HeaderContainer>
+                <Scrollbar
+                    elems={ this.props.services }
+                    firstElem={ this.props.selectedservice }>
+                </Scrollbar>
                 <Scrollbar
                     elems={ groupSelectList }
                     firstElem={ this.props.selectedGroupRus }

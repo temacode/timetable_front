@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
 import Login from './Login';
-import { loginThunkCreator, registerThunkCreator } from '../reducers/loginReducer';
-import { setIsOnLoginActionCreator } from '../reducers/mainReducer';
+import { loginThunkCreator, registerThunkCreator } from '../../reducers/loginReducer';
+import { setIsOnLoginActionCreator } from '../../reducers/mainReducer';
 import { change } from 'redux-form';
+import { Dispatch } from 'react';
 
-let mapStateToProps = state => ({
+let mapStateToProps = (state: any) => ({
     isLoading: state.login.isLoading,
     isOnLogin: state.main.isOnLogin,
+    isOnline: state.main.isOnline,
 });
 
-let mapDispatchToProps = dispatch => ({
-    setIsOnLogin: value => {
+let mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+    setIsOnLogin: (value: boolean) => {
         dispatch(setIsOnLoginActionCreator(value));
     },
     login: (values) => {

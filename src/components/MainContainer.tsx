@@ -9,6 +9,7 @@ let mapStateToProps = (state) => {
         selectedGroup: state.main.selectedGroup,
         selectedGroupRus: translitToRus(state.main.selectedGroup),
         isSelectingGroup: state.main.isSelectingGroup,
+        services: state.main.services,
     });
 };
 
@@ -17,8 +18,8 @@ let mapDispatchToProps = dispatch => {
         getShedule: (groupName) => {
             dispatch(getSheduleDataThunkCreator(groupName));
         },
-        setGroup: (value, ref) => {
-            dispatch(setGroupThunkCreator(value, ref));
+        setGroup: (value) => {
+            dispatch(setGroupThunkCreator(value));
         },
     });
 };

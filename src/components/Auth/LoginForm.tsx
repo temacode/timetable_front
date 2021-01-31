@@ -1,9 +1,9 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import styled from 'styled-components';
-import FieldButton from '../design-kit/Button/FieldButton';
-import { StyledForm } from '../design-kit/Form/Form';
-import LinkButton from '../design-kit/Button/LinkButton';
+import FieldButton from '../../design-kit/Button/FieldButton';
+import { StyledForm } from '../../design-kit/Form/Form';
+import LinkButton from '../../design-kit/Button/LinkButton';
 
 const FormHeader = styled.p`
     text-align: center;
@@ -65,18 +65,34 @@ const renderField = ({ input, placeholder, type, meta: { touched, error, warning
     </StyledField>
 );
 
+type Props = {
+    handleSubmit: any;
+    isLoading: boolean;
+}
+
 const LoginForm = reduxForm({
     form: 'login',
     validate,
-})(props => {
+})((props: Props) => {
     const { handleSubmit } = props;
 
     return (
         <StyledForm onSubmit={ handleSubmit }>
             <FormHeader>Вход</FormHeader>
             <FieldBlock>
-                <Field name="login" component={ renderField } type="text" placeholder="Логин"></Field>
-                <Field autoFocus name="password" component={ renderField } type="password" placeholder="Пароль"></Field>
+                <Field
+                    name="email"
+                    component={ renderField }
+                    type="email"
+                    placeholder="Электропочта">
+                </Field>
+                <Field
+                    autoFocus
+                    name="password"
+                    component={ renderField }
+                    type="password"
+                    placeholder="Пароль">
+                </Field>
             </FieldBlock>
             <FieldButton centered
                 isLoading={ props.isLoading }

@@ -1,10 +1,10 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import styled from 'styled-components';
-import FieldButton from '../design-kit/Button/FieldButton';
-import Button from '../design-kit/Button/Button';
-import { StyledForm } from '../design-kit/Form/Form';
-import LinkButton from '../design-kit/Button/LinkButton';
+import FieldButton from '../../design-kit/Button/FieldButton';
+/* import Button from '../../design-kit/Button/Button'; */
+import { StyledForm } from '../../design-kit/Form/Form';
+import LinkButton from '../../design-kit/Button/LinkButton';
 
 const FormHeader = styled.p`
     text-align: center;
@@ -56,14 +56,15 @@ const validate = values => {
 
 const required = value => value ? undefined : 'Обязательное поле';
 const length = value => value.length >= 5 ? undefined : 'Не менее 5 символов';
-const length3 = value => value.length >=3 ? undefined : 'Не менее 3 символов';
+//const length3 = value => value.length >=3 ? undefined : 'Не менее 3 символов';
 const lengthMax = value => value.length <= 25 ? undefined : 'Не более 25 символов';
 const chars = value => /^[a-zA-Z0-9]{5,25}$/giu.test(value) ? undefined : 'Только латинские буквы и  цифры';
-const charsRus = value => /^[a-zA-Zа-яА-Я]{5,25}$/giu.test(value) ? undefined : 'Только русские и латинские буквы';
+//const charsRus = value => /^[a-zA-Zа-яА-Я]{5,25}$/giu.test(value) ? undefined : 'Только русские и латинские буквы';
+// eslint-disable-next-line max-len
+const email = value => /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i.test(value) ? undefined : 'Неверный формат почты';
 
-const nameValidation = [ required, length3, lengthMax, charsRus ];
-const loginValidation = [ required, length, lengthMax, chars ];
 const passwordValidation = [ required, length, lengthMax, chars ];
+const emailValidation = [ required, email ];
 
 const renderField = ({ input, placeholder, type, meta: { touched, error, warning } }) => (
     <StyledField>
@@ -85,40 +86,28 @@ const RegForm = reduxForm({
 })(props => {
     const { handleSubmit } = props;
 
-    const handleClick = () => {
+    /* const handleClick = () => {
         props.setValues({
             formName: 'reg',
             fields: [
-                { name: 'login', value: 'artem' },
-                { name: 'name', value: 'Артем' },
-                { name: 'surname', value: 'Михайлов' },
+                { name: 'email', value: 'artemmikhailov@icloud.com' },
                 { name: 'password', value: '12345' },
                 { name: 'rep_password', value: '12345' },
             ],
         });
-    };
+    }; */
 
     return (
         <StyledForm onSubmit={ handleSubmit }>
             <FormHeader>Регистрация</FormHeader>
             <FieldBlock>
-                <Field component={ renderField }
-                    name="login"
-                    placeholder="Логин"
-                    type="text"
-                    validate={ loginValidation }>
-                </Field>
-                <Field component={ renderField }
-                    name="name"
-                    placeholder="Имя"
-                    type="text"
-                    validate={ nameValidation }>
-                </Field>
-                <Field component={ renderField }
-                    name="surname"
-                    placeholder="Фамилия"
-                    type="text"
-                    validate={ nameValidation }>
+                <Field
+                    component={ renderField }
+                    placeholder="Почта"
+                    name="email"
+                    type="email"
+                    validate={ emailValidation }
+                >
                 </Field>
                 <Field component={ renderField }
                     name="password"
@@ -133,7 +122,7 @@ const RegForm = reduxForm({
                     validate={ passwordValidation }>
                 </Field>
             </FieldBlock>
-            <Button centered appearance="flat" onTouchStart={ handleClick }>Заполнить</Button>
+            {/* <Button centered appearance="flat" onClick={ handleClick }>Заполнить</Button> */}
             <FieldButton centered
                 component="button"
                 isLoading={ props.isLoading }

@@ -2,9 +2,13 @@ import React from 'react';
 import LoginForm from './LoginForm';
 import { Switch, Route } from 'react-router-dom';
 import RegForm from './RegForm';
-import HeaderContainer from './Header/HeaderContainer';
+import HeaderContainer from '../Header/HeaderContainer';
 
-class Login extends React.Component {
+type LoginProps = {
+    props: any;
+}
+
+class Login extends React.Component<any, any> {
     componentDidMount() {
         this.props.setIsOnLogin(true);
     }
@@ -15,7 +19,7 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <HeaderContainer></HeaderContainer>
+                <HeaderContainer isOnline={this.props.isOnline} isOnLogin={this.props.isOnLogin}></HeaderContainer>
                 <Switch>
                     <Route path="/login/reg">
                         <RegForm setValues={ this.props.setValues }

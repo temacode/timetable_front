@@ -32,9 +32,6 @@ const FlatButton = styled(PrimaryButton)`
     :hover, :focus {
         background: #eaeaea;
     }
-    ${props => {
-        console.log(props);
-    }}
 `;
 
 const OutlineButton = styled(FlatButton)`

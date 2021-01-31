@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { ReactChild } from 'react';
+import * as styled from 'styled-components';
 import { Field } from 'redux-form';
 import Button from './Button';
 
@@ -16,7 +16,16 @@ const StyledField = styled(Field)`
     outline: none;
 `;
 
-const FieldButton = ({ name, component, type, placeholder, top, ...props }) => (
+type FieldButtonProps = {
+    name: string;
+    component: string;
+    type: string;
+    placeholder: string;
+    top: string;
+    children: ReactChild
+}
+
+const FieldButton = ({ name, component, type, placeholder, top, ...props }: FieldButtonProps) => (
     <Button { ...props } top={ top || '30' }>
         <StyledField name={ name }
             component={ component }
