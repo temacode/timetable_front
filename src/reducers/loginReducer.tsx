@@ -1,27 +1,24 @@
 import axios from 'axios';
 import { Dispatch } from 'react';
 import { showNotificationThunkCreator } from './notificationReducer';
-import { BasePayloadAction } from './mainReducer';
 import { LoginForm } from '../forms/loginForm';
+import {LoginReducerActions} from "./enums";
+import {BasePayloadAction} from "./interfaces";
 
 interface IInitialState {
     isLoading: boolean
 }
 
-
-let initialState: IInitialState = {
+const initialState: IInitialState = {
     isLoading: false,
 };
 
-enum Actions {
-    LOGIN = 'LOGIN'
-}
-
-const loginReducer = (state = initialState, (action: BasePayloadAction)) => {
+const loginReducer = (state = initialState, action: BasePayloadAction) => {
     switch (action.type) {
-        case Actions.LOGIN: {
-            let loginState = { ...state };
+        case LoginReducerActions.LOGIN: {
+            let loginState:IInitialState = { ...state };
             loginState.isLoading = !loginState.isLoading;
+
             return loginState;
         }
         default:
@@ -31,7 +28,7 @@ const loginReducer = (state = initialState, (action: BasePayloadAction)) => {
 
 const loginActionCreator = () => {
     return ({
-        type: Actions.LOGIN,
+        type: LoginReducerActions.LOGIN,
     });
 };
 

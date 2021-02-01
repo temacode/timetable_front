@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Main from './Main';
-import { getSheduleDataThunkCreator, setGroupThunkCreator } from '../reducers/mainReducer';
+import { getScheduleDataThunkCreator, setGroupThunkCreator } from '../reducers/mainReducer';
 import { translitToRus } from '../helpers/translitToRus';
 
 let mapStateToProps = (state) => {
@@ -15,8 +15,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = dispatch => {
     return({
-        getShedule: (groupName) => {
-            dispatch(getSheduleDataThunkCreator(groupName));
+        getSchedule: (groupName) => {
+            dispatch(getScheduleDataThunkCreator(groupName));
         },
         setGroup: (value) => {
             dispatch(setGroupThunkCreator(value));

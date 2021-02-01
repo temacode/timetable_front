@@ -1,9 +1,8 @@
 import React from 'react';
-import { reduxForm, Field } from 'redux-form';
 import styled from 'styled-components';
 import FieldButton from '../../design-kit/Button/FieldButton';
-import { StyledForm } from '../../design-kit/Form/Form';
 import LinkButton from '../../design-kit/Button/LinkButton';
+import {Field, Form} from "react-final-form";
 
 const FormHeader = styled.p`
     text-align: center;
@@ -41,23 +40,20 @@ const StyledFieldInput = styled.input`
     padding: 5px 20px;
 `;
 
-const validate = values => {
-    const errors = {};
-
-    if (!values.login) {
-        errors.login = 'Обязательное поле';
-    } else if (values.login.length < 5) {
-        errors.login = 'Не меньше 5 символов';
-    } else if (/^[a-zA-Z0-9]{5,}$/gi.test(values.login)) {
-        errors.login = 'Все хорошо';
+interface CustomFieldProps {
+    input: any,
+    placeholder: string,
+    type: string,
+    meta: {
+        touched: boolean,
+        error: string,
+        warning: string
     }
+}
 
-    return errors;
-};
-
-const renderField = ({ input, placeholder, type, meta: { touched, error, warning } }) => (
+const renderField = ({input, placeholder, type, meta: {touched, error, warning}}: CustomFieldProps) => (
     <StyledField>
-        <StyledFieldInput { ...input } placeholder={ placeholder } type={ type }></StyledFieldInput>
+        <StyledFieldInput {...input} placeholder={placeholder} type={type} />
         <StyledFieldMessage>
             {touched && error ? error : ''}
             {touched && warning ? warning : ''}
@@ -66,51 +62,51 @@ const renderField = ({ input, placeholder, type, meta: { touched, error, warning
 );
 
 type Props = {
-    handleSubmit: any;
+    onSubmit: any;
     isLoading: boolean;
 }
 
-const LoginForm = reduxForm({
-    form: 'login',
-    validate,
-})((props: Props) => {
-    const { handleSubmit } = props;
+const LoginForm = (props: Props) => {
 
     return (
-        <StyledForm onSubmit={ handleSubmit }>
-            <FormHeader>Вход</FormHeader>
-            <FieldBlock>
-                <Field
-                    name="email"
-                    component={ renderField }
-                    type="email"
-                    placeholder="Электропочта">
-                </Field>
-                <Field
-                    autoFocus
-                    name="password"
-                    component={ renderField }
-                    type="password"
-                    placeholder="Пароль">
-                </Field>
-            </FieldBlock>
-            <FieldButton centered
-                isLoading={ props.isLoading }
-                name="sibmit"
-                component="button"
-                type="submit">
+        <Form onSubmit={values => {}}>
+            {({handleSubmit, pristine, form, submitting}) => (
+                <form onSubmit={handleSubmit}>
+                    <FormHeader>Вход</FormHeader>
+                    <FieldBlock>
+                        <Field
+                            name="email"
+                            component={renderField}
+                            type="email"
+                            placeholder="Электропочта">
+                        </Field>
+                        <Field
+                            autoFocus
+                            name="password"
+                            component={renderField}
+                            type="password"
+                            placeholder="Пароль">
+                        </Field>
+                    </FieldBlock>
+                    <FieldButton centered
+                                 isLoading={props.isLoading}
+                                 name="submit"
+                                 component="button"
+                                 type="submit">
 
-                Отправить
-            </FieldButton>
-            <LinkButton centered
-                isLoading={ false }
-                to="/login/reg"
-                appearance="flat">
+                        Отправить
+                    </FieldButton>
+                    <LinkButton centered
+                                isLoading={false}
+                                to="/login/reg"
+                                appearance="flat">
 
-                Зарегистрироваться
-            </LinkButton>
-        </StyledForm>
+                        Зарегистрироваться
+                    </LinkButton>
+                </form>
+            )}
+        </Form>
     );
-});
+}
 
 export default LoginForm;

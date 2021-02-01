@@ -12,7 +12,7 @@ const App = () => {
                 <Route path="/login">
                     <LoginContainer />
                 </Route>
-                <Route path="/shedule">
+                <Route path="/schedule">
                     {withRouter(props => <MainContainer { ...props } />)}
                 </Route>
                 <Route path="/">

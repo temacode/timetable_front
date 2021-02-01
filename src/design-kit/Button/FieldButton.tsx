@@ -1,7 +1,7 @@
-import React, { ReactChild } from 'react';
-import * as styled from 'styled-components';
-import { Field } from 'redux-form';
+import React, {ComponentType, ReactChild} from 'react';
 import Button from './Button';
+import styled from "styled-components";
+import {Field} from "react-final-form";
 
 const StyledField = styled(Field)`
     display: flex;
@@ -16,19 +16,29 @@ const StyledField = styled(Field)`
     outline: none;
 `;
 
-type FieldButtonProps = {
-    name: string;
-    component: string;
+interface CustomFieldProps {
     type: string;
-    placeholder: string;
-    top: string;
-    children: ReactChild
+    name: string;
+    placeholder?: string;
 }
+
+interface FieldButtonProps extends CustomFieldProps {
+    component?: 'input'| 'select' | 'textarea' | 'button';
+    top?: string;
+    children: ReactChild;
+    centered?: boolean,
+    isLoading?: boolean
+}
+
+const renderField = ({placeholder, type, name}: CustomFieldProps) => {
+    return <input placeholder={placeholder} type={type} name={name}/>
+}
+
 
 const FieldButton = ({ name, component, type, placeholder, top, ...props }: FieldButtonProps) => (
     <Button { ...props } top={ top || '30' }>
         <StyledField name={ name }
-            component={ component }
+            component={ renderField }
             type={ type }
             placeholder={ placeholder }>
 

@@ -1,5 +1,5 @@
 let initialState = {
-    shedule: [],
+    schedule: [],
 };
 
 let lessonReducer = (state = initialState, action) => {

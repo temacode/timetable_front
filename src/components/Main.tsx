@@ -7,9 +7,9 @@ import { Redirect } from 'react-router-dom';
 class Main extends React.Component<any, any> {
     componentDidMount() {
         if (new RegExp(/[\w]{4}-[\d]{2}-[\d]{2}/gi).test(this.props.location.pathname)) {
-            this.props.getShedule((this.props.location.pathname.split('/'))[1]);
+            this.props.getSchedule((this.props.location.pathname.split('/'))[1]);
         } else {
-            this.props.getShedule();
+            this.props.getSchedule();
         }
     }
 

@@ -1,39 +1,25 @@
 import axios from 'axios';
-import { Dispatch } from 'redux';
+import {Dispatch} from 'redux';
 import {
     getYMDString
 } from '../helpers/dateHelper';
+import {BasePayloadAction} from "./interfaces";
 
 interface IService {
     name: string,
-        displayName: string,
-        path: string,
-        selected: boolean
+    displayName: string,
+    path: string,
+    selected: boolean
 }
 
 interface IInitialState {
     groups: string[],
-        selectedGroup: string,
-        isOnline: boolean,
-        isOnLogin: boolean,
-        savedAt: Date,
-        services: IService[] | null,
-        selectedService: IService | null,
-}
-
-export interface BasePayloadAction {
-    type: Actions,
-        payload: any,
-}
-
-enum Actions {
-    SHOW_SHEDULE = 'SHOW_SHEDULE',
-        SET_GROUP_COOKIE = 'SET_GROUP_COOKIE',
-        IS_ON_LOGIN = 'IS_ON_LOGIN',
-        IS_ONLINE = 'IS_ONLINE',
-        UPDATE_SAVED_TIME = 'UPDATE_SAVED_TIME',
-        LOAD_SERVICES = 'LOAD_SERVICES',
-        SELECT_SERVICE = 'SELECT_SERVICE',
+    selectedGroup: string,
+    isOnline: boolean,
+    isOnLogin: boolean,
+    savedAt: Date,
+    services: IService[] | null,
+    selectedService: IService | null,
 }
 
 let initialState: IInitialState = {
@@ -48,7 +34,7 @@ let initialState: IInitialState = {
 
 let mainReducer = (state = initialState, action: BasePayloadAction) => {
     switch (action.type) {
-        case Actions.SHOW_SHEDULE: {
+        case MainReducerActions.SHOW_SCHEDULE: {
             let stateNew = {
                 ...state
             };
@@ -57,7 +43,7 @@ let mainReducer = (state = initialState, action: BasePayloadAction) => {
 
             return stateNew;
         }
-        case Actions.SET_GROUP_COOKIE: {
+        case MainReducerActions.SET_GROUP_COOKIE: {
             let stateNew = {
                 ...state
             };
@@ -65,21 +51,21 @@ let mainReducer = (state = initialState, action: BasePayloadAction) => {
 
             return stateNew;
         }
-        case Actions.IS_ON_LOGIN: {
+        case MainReducerActions.IS_ON_LOGIN: {
             let stateNew = {
                 ...state
             };
             stateNew.isOnLogin = action.payload;
             return stateNew;
         }
-        case Actions.IS_ONLINE: {
+        case MainReducerActions.IS_ONLINE: {
             let stateNew = {
                 ...state
             };
             stateNew.isOnline = action.payload;
             return stateNew;
         }
-        case Actions.UPDATE_SAVED_TIME: {
+        case MainReducerActions.UPDATE_SAVED_TIME: {
             let stateNew = {
                 ...state
             };
@@ -88,14 +74,14 @@ let mainReducer = (state = initialState, action: BasePayloadAction) => {
 
             return stateNew;
         }
-        case Actions.LOAD_SERVICES: {
+        case MainReducerActions.LOAD_SERVICES: {
             let stateNew = {
                 ...state
             };
             stateNew.services = action.payload;
             return stateNew;
         }
-        case Actions.SELECT_SERVICE: {
+        case MainReducerActions.SELECT_SERVICE: {
             return {
                 ...state,
                 selectedService: action.payload,
@@ -106,29 +92,29 @@ let mainReducer = (state = initialState, action: BasePayloadAction) => {
     }
 };
 
-const showSheduleActionCreator = (payload: string[]) => {
+const showScheduleActionCreator = (payload: string[]) => {
     return ({
-        type: Actions.SHOW_SHEDULE,
+        type: MainReducerActions.SHOW_SCHEDULE,
         payload: payload,
     });
 };
 
 const setGroupActionCreator = (payload: string) => ({
-    type: Actions.SET_GROUP_COOKIE,
+    type: MainReducerActions.SET_GROUP_COOKIE,
     payload: payload,
 });
 
 export const setIsOnLoginActionCreator = (payload: boolean) => ({
-    type: Actions.IS_ON_LOGIN,
+    type: MainReducerActions.IS_ON_LOGIN,
     payload: payload,
 });
 
 export const setIsOnlineActionCreator = (payload: boolean) => ({
-    type: Actions.IS_ONLINE,
+    type: MainReducerActions.IS_ONLINE,
     payload: payload,
 });
 
-export const getSheduleDataThunkCreator = (pathGroup: string) => (dispatch: Dispatch<any>) => {
+export const getScheduleDataThunkCreator = (pathGroup: string) => (dispatch: Dispatch<any>) => {
 
     const dateNow = getYMDString();
 
@@ -143,12 +129,12 @@ export const getSheduleDataThunkCreator = (pathGroup: string) => (dispatch: Disp
     }
 
     axios.get('/api/timetable/').then(res => {
-        const shedule = {
+        const schedule = {
             data: [...res.data],
             savedAt: dateNow,
         };
-        console.log(shedule);
-        dispatch(showSheduleActionCreator(shedule.data));
+        console.log(schedule);
+        dispatch(showScheduleActionCreator(schedule.data));
     });
 };
 
@@ -167,13 +153,13 @@ export const setGroupThunkCreator = (value: string = '') => (dispatch: Dispatch<
 };
 
 export const updateSavedTimeActionCreator = () => ({
-    type: Actions.UPDATE_SAVED_TIME,
+    type: MainReducerActions.UPDATE_SAVED_TIME,
 });
 
 const loadServicesActionCreator = (payload: IService[] | null) => ({
-        type: Actions.LOAD_SERVICES,
-        payload: payload,
-    } as const);
+    type: MainReducerActions.LOAD_SERVICES,
+    payload: payload,
+} as const);
 
 export const loadServicesThunkCreator = () => (dispatch: Dispatch<any>) => {
     axios.get('/api/services/')
@@ -185,7 +171,7 @@ export const loadServicesThunkCreator = () => (dispatch: Dispatch<any>) => {
 };
 
 export const selectServiceActionCreator = (payload: IService[] | null) => ({
-    type: Actions.SELECT_SERVICE,
+    type: MainReducerActions.SELECT_SERVICE,
     payload: payload,
 });
 export default mainReducer;

@@ -5,7 +5,7 @@ const Group = props => {
     setInterval(() => {
         props.updateSavedTime();
     }, 1000);
-    let lessonList = props.group.shedule.map((lessonList, i) => {
+    let lessonList = props.group.schedule.map((lessonList, i) => {
         if (lessonList) {
             return (
                 <LessonListContainer key={ i }
