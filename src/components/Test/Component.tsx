@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Component = props => (
-    <div props={ props }>
+const Component = () => (
+    <div>
 
     </div>
 );
@@ -21,9 +21,7 @@ class ClassComponent extends React.Component {
 }
 
 const Lol = () => (
-    <Component>
-        <ClassComponent></ClassComponent>
-    </Component>
+    <Component/>
 );
 
 export default Lol;

@@ -2,8 +2,8 @@ import React from 'react';
 import LoginForm from './LoginForm';
 import { Switch, Route } from 'react-router-dom';
 
-import HeaderContainer from '../Header/HeaderContainer';
 import RegisterFormComponent from "../../libs/auth/src/lib/compoents/register/register-form";
+import {HeaderContainer} from "../../libs/header/src";
 
 type LoginProps = {
     props: any;

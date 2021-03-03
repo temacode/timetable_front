@@ -1,18 +1,25 @@
 import React from 'react';
 import LessonListContainer from './LessonListContainer';
+import {Schedule} from "../libs/common/src/lib/interfaces/schedule";
 
-const Group = props => {
+interface GroupProps {
+    updateSavedTime: any,
+    group: Schedule
+}
+
+const GroupComponent = (props: GroupProps) => {
     setInterval(() => {
         props.updateSavedTime();
-    }, 1000);
+    }, 10000);
+    console.log(props.group);
     let lessonList = props.group.schedule.map((lessonList, i) => {
         if (lessonList) {
             return (
                 <LessonListContainer key={ i }
                     first={ i === 0 }
+                    week={props.group.schedule}
                     lessonList={ lessonList }
-                    dayName={ lessonList[0].dayName }>
-                </LessonListContainer>
+                    dayName={ lessonList.dayName }/>
             );
         }
 
@@ -23,4 +30,4 @@ const Group = props => {
     );
 };
 
-export default Group;
+export default GroupComponent;

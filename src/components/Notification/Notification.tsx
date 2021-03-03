@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledNotification = styled.div`
+const StyledNotification = styled.div<{isShowing?: boolean}>`
     box-sizing: border-box;
     position: fixed;
     display: flex;
@@ -22,22 +22,24 @@ const StyledNotification = styled.div`
 `;
 
 const Icon = styled.div`
-    position: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 10px;
     font-size: 30px;
 `;
 
-class Notification extends React.Component {
-    render() {
-        return (
-            <StyledNotification isShowing={ this.props.isShowing }>
-                <Icon>{ this.props.icon }</Icon>
-                {this.props.message}
-            </StyledNotification>
-        );
-    }
+interface INotificationProps {
+    isShowing: boolean,
+    icon?: string,
+    message: string,
 }
+
+const Notification = (props: INotificationProps) => (
+    <StyledNotification isShowing={props.isShowing}>
+        <Icon>{props.icon}</Icon>
+        {props.message}
+    </StyledNotification>
+)
 
 export default Notification;

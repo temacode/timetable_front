@@ -1,5 +1,5 @@
-export const translitToRus = (string) => {
-    let converter = {
+export const translitToRus = (string: string) => {
+    const converter = {
         'a': 'а',
         'b': 'б',
         'v': 'в',
@@ -27,7 +27,9 @@ export const translitToRus = (string) => {
     let result = string.toLowerCase().split('');
 
     string.toLowerCase().split('').forEach((e, index) => {
+        // @ts-ignore
         if (typeof converter[e] !== 'undefined') {
+            // @ts-ignore
             result[index] = converter[e];
         }
     });

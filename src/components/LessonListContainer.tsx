@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import LessonList from './LessonList';
-let mapStateToProps = state => {
+import {RootState} from "../reduxStore";
+
+let mapStateToProps = (state: RootState) => {
     return ({
         savedAt: state.main.savedAt,
     });

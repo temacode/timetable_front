@@ -1,4 +1,4 @@
-enum MainReducerActions {
+export enum MainReducerActions {
     SHOW_SCHEDULE = 'SHOW_SCHEDULE',
     SET_GROUP_COOKIE = 'SET_GROUP_COOKIE',
     IS_ON_LOGIN = 'IS_ON_LOGIN',

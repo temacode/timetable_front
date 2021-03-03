@@ -4,42 +4,45 @@ import {
     getYMDString
 } from '../helpers/dateHelper';
 import {BasePayloadAction} from "./interfaces";
+import {IScrollbarElementProps} from "../design-kit/Scrollbar/ScrollbarElement";
+import {MainReducerActions} from './enums/main-reducer-actions'
+import {Schedule} from "../libs/common/src/lib/interfaces/schedule";
 
-interface IService {
+export interface IService extends IScrollbarElementProps {
+    to: string,
     name: string,
-    displayName: string,
-    path: string,
     selected: boolean
+    displayName: string,
 }
 
-interface IInitialState {
-    groups: string[],
+export interface IMainState {
+    schedule: Schedule[],
     selectedGroup: string,
     isOnline: boolean,
     isOnLogin: boolean,
     savedAt: Date,
-    services: IService[] | null,
+    services: IService[],
     selectedService: IService | null,
 }
 
-let initialState: IInitialState = {
-    groups: [],
+let initialState: IMainState = {
+    schedule: [],
     selectedGroup: '',
     isOnline: false,
     isOnLogin: false,
     savedAt: new Date(),
-    services: null,
+    services: [],
     selectedService: null,
 };
 
-let mainReducer = (state = initialState, action: BasePayloadAction) => {
+const mainReducer = (state = initialState, action: BasePayloadAction) => {
     switch (action.type) {
         case MainReducerActions.SHOW_SCHEDULE: {
             let stateNew = {
                 ...state
             };
 
-            stateNew.groups = [...action.payload];
+            stateNew.schedule = [...action.payload];
 
             return stateNew;
         }
@@ -92,7 +95,7 @@ let mainReducer = (state = initialState, action: BasePayloadAction) => {
     }
 };
 
-const showScheduleActionCreator = (payload: string[]) => {
+const showScheduleActionCreator = (payload: Schedule[]) => {
     return ({
         type: MainReducerActions.SHOW_SCHEDULE,
         payload: payload,
@@ -133,7 +136,6 @@ export const getScheduleDataThunkCreator = (pathGroup: string) => (dispatch: Dis
             data: [...res.data],
             savedAt: dateNow,
         };
-        console.log(schedule);
         dispatch(showScheduleActionCreator(schedule.data));
     });
 };
@@ -162,15 +164,14 @@ const loadServicesActionCreator = (payload: IService[] | null) => ({
 } as const);
 
 export const loadServicesThunkCreator = () => (dispatch: Dispatch<any>) => {
-    axios.get('/api/services/')
+    axios.get('/api/services')
         .then(res => {
-            console.log(res.data);
             dispatch(loadServicesActionCreator(res.data));
         })
         .catch(() => console.log('Ошибка загрузки роута'));
 };
 
-export const selectServiceActionCreator = (payload: IService[] | null) => ({
+export const selectServiceActionCreator = (payload: IService | null) => ({
     type: MainReducerActions.SELECT_SERVICE,
     payload: payload,
 });

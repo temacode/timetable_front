@@ -1,5 +1,5 @@
-export const lessonActiveCheck = (startMin, endMin, nowMin, dayName) => {
-    const dayNum = (dayName) => {
+export const lessonActiveCheck = (startMin: number, endMin: number, nowMin: number, dayName: string) => {
+    const dayNum = (name: string) => {
         switch (dayName) {
             case 'Понедельник': {
                 return 1;

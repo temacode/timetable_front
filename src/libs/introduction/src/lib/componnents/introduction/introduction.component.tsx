@@ -1,10 +1,12 @@
 import React from 'react';
-import HeaderContainer from './Header/HeaderContainer';
 import styled from 'styled-components';
-import Scrollbar from '../design-kit/Scrollbar/Scrollbar';
+import Scrollbar from "../../../../../../design-kit/Scrollbar/Scrollbar";
+import {HeaderContainer} from "../../../../../header/src";
+import {IService} from "../../../../../../reducers/mainReducer";
+import {IScrollbarElementProps} from "../../../../../../design-kit/Scrollbar/ScrollbarElement";
 
 const Content = styled.div`
-    padding: 0px 20px;
+    padding: 0 20px;
     margin-top: 20px;
 `;
 
@@ -18,25 +20,32 @@ const HelloPageSubText = styled(HelloPageText)`
     margin-top: 10px;
 `;
 
-const HelloPage = props => {
-    if (!props.services) {
-        console.log(props.services);
+interface IIntroductionComponentProps {
+    services: IScrollbarElementProps[],
+    selectedService: string,
+    loadServices: () => any,
+    selectService: (x: any) => any,
+}
+
+const IntroductionComponent = (props: IIntroductionComponentProps) => {
+    if (props.services.length === 0) {
         props.loadServices();
         return (<p>Loading</p>);
+    } else {
+        console.log('Сервисы', props.services);
     }
-    //TODO выынести код ниже в маппре и сооздать сам маппре
+    //TODO выынести код ниже в маппер и сооздать сам маппер
 
-    const onClickHandler = (elem) => {
+    const onClickHandler = (elem: any) => {
         props.selectService(elem);
     };
     return(
         <div>
-            <HeaderContainer></HeaderContainer>
+            <HeaderContainer />
             <Scrollbar
-                elems={ props.services }
+                items={ props.services }
                 firstElem={ props.selectedService }
-                onClickHandler={ onClickHandler }>
-            </Scrollbar>
+                onClickHandler={ onClickHandler } />
             <Content>
                 <HelloPageText>
                     Добро <br />пожаловать
@@ -52,4 +61,4 @@ const HelloPage = props => {
     );
 };
 
-export default HelloPage;
+export default IntroductionComponent;

@@ -1,3 +1,3 @@
-export interface LoginForm {
+export interface ILoginForm {
     
 }

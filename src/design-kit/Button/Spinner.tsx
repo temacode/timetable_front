@@ -1,8 +1,8 @@
 import React from 'react';
 import { HashLoader as LoaderAnimation } from 'react-spinners';
 
-const Spinner = (props) => (
-    <LoaderAnimation { ...props }></LoaderAnimation>
+const Spinner = ({...props}) => (
+    <LoaderAnimation { ...props } />
 );
 
 export default Spinner;

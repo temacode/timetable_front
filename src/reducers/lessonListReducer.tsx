@@ -1,8 +1,15 @@
+import {BasePayloadAction} from "./interfaces";
+import {Schedule} from "../libs/common/src/lib/interfaces/schedule";
+
+interface State {
+    schedule: Schedule[]
+}
+
 let initialState = {
     schedule: [],
 };
 
-let lessonReducer = (state = initialState, action) => {
+const lessonReducer = (state = initialState, action: BasePayloadAction) => {
     switch (action.type) {
         default:
             return state;

@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Spinner from './Spinner';
 
-const PrimaryButton = styled.div`
+type ButtonSizes = 's' | undefined;
+
+const PrimaryButton = styled(({...rest}) => <div {...rest}/>)<IButtonProps>`
     position: relative;
     width: ${props => props.size === 's' ? '100px' : '250px'};
     height: ${props => props.size === 's' ? '40px' : '50px'};
@@ -19,7 +21,7 @@ const PrimaryButton = styled.div`
         color: white;
     }
     :hover, :focus {
-        background: '#393939';
+        background: #393939;
     }
 `;
 
@@ -54,7 +56,19 @@ const StyledLoader = styled.div`
     align-items: center;
 `;
 
-const Button = (props) => {
+type ButtonTypes = 'flat' | 'outline';
+
+export interface IButtonProps {
+    appearance?: ButtonTypes,
+    top?: string,
+    size?: ButtonSizes,
+    centered?: boolean,
+    isLoading?: boolean,
+    children?: React.ReactChild,
+    to?: string
+}
+
+const Button = (props: IButtonProps) => {
     const loader = props.isLoading ?
         <StyledLoader>
             <Spinner
@@ -63,7 +77,7 @@ const Button = (props) => {
             </Spinner>
         </StyledLoader>
         : undefined;
-    const buttonSwitcher = ({ appearance, ...props }) => {
+    const buttonSwitcher = (appearance: ButtonTypes | undefined, {...props }) => {
         switch (appearance) {
             case 'flat':
                 return <FlatButton { ...props }>{loader}{props.children}</FlatButton>;
@@ -76,7 +90,7 @@ const Button = (props) => {
 
     return (
         <>
-            {buttonSwitcher({ ...props })}
+            {buttonSwitcher(props.appearance, { ...props })}
         </>
     );
 };

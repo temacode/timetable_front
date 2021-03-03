@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {RefObject} from 'react';
 import styled from 'styled-components';
-import ScrollbarElement from './ScrollbarElement';
+import ScrollbarElement, {IScrollbarElementProps} from './ScrollbarElement';
 import { scrollTo } from '../../helpers/scrollLeftAnimation';
 
 const StyledScrollbar = styled.div`
@@ -11,19 +11,24 @@ const StyledScrollbar = styled.div`
 
 `;
 
-class Scrollbar extends React.Component {
+interface IScrollbarProps {
+    firstElem: string,
+    firstElemKey?: any,
+    items: IScrollbarElementProps[],
+    onClickHandler?: (x: any) => any,
+}
 
-    constructor() {
-        super();
-        this.scrollbarRef = '';
+class Scrollbar extends React.Component<IScrollbarProps, any> {
 
-        this.setScrollbarRef = element => {
-            this.scrollbarRef = element;
-        };
+    private readonly scrollbarRef: React.RefObject<HTMLDivElement>;
+
+    constructor(props: IScrollbarProps) {
+        super(props);
+        this.scrollbarRef = React.createRef();
     }
 
     componentDidMount() {
-        if(!this.props.items) {
+        if (!this.props.items) {
             return;
         }
     }
@@ -34,26 +39,21 @@ class Scrollbar extends React.Component {
                 return (
                     <ScrollbarElement
                         key={ i }
-                        to={ e.path }
+                        to={ e.to }
+                        displayName={e.displayName}
                         onClick={ () => {
-                            this.props.onClickHandler(e.key);
-                            scrollTo(this.scrollbarRef, 0, 300);
-                        } }>
-
-                        {e.displayName}
-                    </ScrollbarElement>
+                            this.props.onClickHandler!(e);
+                            scrollTo(this.scrollbarRef!, 0, 300);
+                        }}/>
                 );
             }
             return null;
         });
 
         return (
-            <StyledScrollbar ref={ this.setScrollbarRef }>
+            <StyledScrollbar ref={ this.scrollbarRef }>
                 {this.props.firstElem ?
-                    <ScrollbarElement
-                        selected
-                        to={ this.props.firstElemKey }>{this.props.firstElem}
-                    </ScrollbarElement>
+                    <ScrollbarElement selected to={ this.props.firstElemKey } displayName={this.props.firstElem}/>
                     : ''}
                 {items}
             </StyledScrollbar>

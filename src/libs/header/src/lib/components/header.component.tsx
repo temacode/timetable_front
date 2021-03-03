@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import LinkButton from '../../design-kit/Button/LinkButton';
-import LogoImg from '../../logo.png';
+import {HeaderInterface} from "../interfaces/header.interface";
+import LinkButton from "../../../../../design-kit/Button/LinkButton";
+import LogoImg from '/src/public/logo.png';
 
 const HeaderBlock = styled.div`
     display: flex;
@@ -32,13 +33,13 @@ const Logo = styled.img`
     height: 40px;
 `;
 
-const Header = ({ isOnline, isOnLogin }) => {
+const HeaderComponent: React.FC<HeaderInterface> = (props: HeaderInterface) => {
     return (
         <HeaderBlock>
             {/* <Link to="/"><h1>КАРАНТИН<span> в МИРЭА</span></h1></Link> */}
-            <Link to="/"><Logo src={ LogoImg }></Logo></Link>
+            <Link to="/"><Logo src={LogoImg} /></Link>
             {
-                (!isOnline && !isOnLogin) ?
+                (!props.isOnline && !props.isOnLogin) ?
                     <LinkButton to="/login"
                         top="3"
                         size="s"
@@ -52,4 +53,4 @@ const Header = ({ isOnline, isOnLogin }) => {
     );
 };
 
-export default Header;
+export default HeaderComponent;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'react';
 import { showNotificationThunkCreator } from './notificationReducer';
-import { LoginForm } from '../forms/loginForm';
+import { ILoginForm } from '../forms/loginForm';
 import {LoginReducerActions} from "./enums";
 import {BasePayloadAction} from "./interfaces";
 
@@ -39,7 +39,7 @@ export const loginThunkCreator = () => (dispatch: Dispatch<any>) => {
     }, 2000);
 };
 
-export const registerThunkCreator = (values: LoginForm) => (dispatch: Dispatch<any>) => {
+export const registerThunkCreator = (values: ILoginForm) => (dispatch: Dispatch<any>) => {
     dispatch(loginActionCreator());
     axios.post('/api/auth', { reg: values }).then(res => {
         dispatch(showNotificationThunkCreator(res.data.message));

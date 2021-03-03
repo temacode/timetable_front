@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import FieldButton from '../../design-kit/Button/FieldButton';
 import LinkButton from '../../design-kit/Button/LinkButton';
 import {Field, Form} from "react-final-form";
+import {ILoginForm} from "../../forms/loginForm";
 
 const FormHeader = styled.p`
     text-align: center;
@@ -69,8 +70,8 @@ type Props = {
 const LoginForm = (props: Props) => {
 
     return (
-        <Form onSubmit={values => {}}>
-            {({handleSubmit, pristine, form, submitting}) => (
+        <Form onSubmit={(values: ILoginForm) => {}}>
+            {({handleSubmit}) => (
                 <form onSubmit={handleSubmit}>
                     <FormHeader>Вход</FormHeader>
                     <FieldBlock>

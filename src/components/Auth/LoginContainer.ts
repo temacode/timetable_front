@@ -3,7 +3,7 @@ import Login from './Login';
 import { loginThunkCreator, registerThunkCreator } from '../../reducers/loginReducer';
 import { setIsOnLoginActionCreator } from '../../reducers/mainReducer';
 import { Dispatch } from 'react';
-import {LoginForm} from "../../forms/loginForm";
+import {ILoginForm} from "../../forms/loginForm";
 
 let mapStateToProps = (state: any) => ({
     isLoading: state.login.isLoading,
@@ -18,7 +18,7 @@ let mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     login: () => {
         dispatch(loginThunkCreator());
     },
-    register: (values: LoginForm) => {
+    register: (values: ILoginForm) => {
         dispatch(registerThunkCreator(values));
     },
 });

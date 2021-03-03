@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import LoginContainer from './components/Auth/LoginContainer';
 import NotificationContainer from './components/Notification/NotificationContainer';
-import HelloPageContainer from './components/HelloPageContainer';
-import MainContainer from './components/MainContainer';
+import MainContainer from './components/main.container';
+import {IntroductionContainer} from "./libs/introduction/src";
 
 const App = () => {
     return (
@@ -16,7 +16,7 @@ const App = () => {
                     {withRouter(props => <MainContainer { ...props } />)}
                 </Route>
                 <Route path="/">
-                    {withRouter(props => <HelloPageContainer { ...props } />)}
+                    {withRouter(props => <IntroductionContainer { ...props } />)}
                 </Route>
             </Switch>
             <NotificationContainer />

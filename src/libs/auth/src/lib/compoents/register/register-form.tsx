@@ -5,6 +5,7 @@ import FieldButton from "../../../../../../design-kit/Button/FieldButton";
 import {Field, Form} from "react-final-form";
 import {requiredValidator} from "../../../../../common/src/lib/validators";
 import LinkButton from "../../../../../../design-kit/Button/LinkButton";
+import {IRegisterForm} from "../../interfaces/register-form.interface";
 
 interface Props {
     input: any,
@@ -37,8 +38,8 @@ interface RegisterFormProps {
 }
 
 const RegisterFormComponent = (props: RegisterFormProps) => (
-        <Form onSubmit={values => {}}>
-            {({handleSubmit, pristine,form, submitting}) => (
+        <Form onSubmit={(values: IRegisterForm) => {}}>
+            {({handleSubmit}) => (
                 <StyledForm onSubmit={handleSubmit}>
                     <FormHeader>Регистрация</FormHeader>
                     <FieldBlock>
@@ -63,7 +64,7 @@ const RegisterFormComponent = (props: RegisterFormProps) => (
                     <FieldButton centered
                                  component="button"
                                  isLoading={props.isLoading}
-                                 name="susbmit"
+                                 name="subbmit"
                                  type="submit">Отправить
                     </FieldButton>
                     <LinkButton centered to="/login" appearance="flat"> Уже зарегистрированы?</LinkButton>

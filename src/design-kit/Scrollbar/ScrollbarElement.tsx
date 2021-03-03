@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import {Link} from "react-router-dom";
 
-const StyledScrollbarElement = styled(Link)`
+interface ISelected extends Link {
+    readonly selected: boolean;
+}
+
+const StyledScrollbarElement = styled(({selected, ...rest}) => <Link {...rest}/>)<{
+    selected: boolean
+}>`
     display: flex;
     flex-shrink: 0;
     align-items: center;
@@ -18,9 +24,16 @@ const StyledScrollbarElement = styled(Link)`
     color: ${props => props.selected ? 'white' : ''};
 `;
 
-const ScrollbarElement = ({ to, ...props }) => (
-    <StyledScrollbarElement to={ to }
-        { ...props }>{props.children}
+export interface IScrollbarElementProps {
+    to: string,
+    selected?: boolean,
+    displayName: string
+    onClick?: () => any
+}
+
+const ScrollbarElement = ({ to, ...props }: IScrollbarElementProps) => (
+    <StyledScrollbarElement to={ to } {...props.selected}>
+        {props.displayName}
     </StyledScrollbarElement>
 );
 
